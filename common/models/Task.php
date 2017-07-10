@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "task".
@@ -34,7 +35,7 @@ class Task extends \common\base\ActiveRecord
     public function rules()
     {
         return [
-            [['group_id', 'name', 'budget_period', 'actual_period', 'created_at', 'updated_at'], 'required'],
+            [['group_id', 'name', 'budget_period', 'actual_period'], 'required'],
             [['group_id', 'budget_period', 'actual_period', 'created_at', 'updated_at'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['name'], 'unique'],
@@ -72,5 +73,12 @@ class Task extends \common\base\ActiveRecord
     public function getGroup()
     {
         return $this->hasOne(Group::className(), ['id' => 'group_id']);
+    }
+
+    public static function getList(): array
+    {
+        $arr = static::find()->select(['id', 'name'])->asArray()->all();
+        $res = ArrayHelper::map($arr, 'id', 'name');
+        return $res;
     }
 }

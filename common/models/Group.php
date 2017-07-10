@@ -4,6 +4,7 @@ namespace common\models;
 
 use common\base\ActiveRecord;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "group".
@@ -57,5 +58,12 @@ class Group extends ActiveRecord
     public function getTasks()
     {
         return $this->hasMany(Task::className(), ['group_id' => 'id']);
+    }
+
+    public static function getList(): array
+    {
+        $arr = static::find()->select(['id', 'name'])->asArray()->all();
+        $res = ArrayHelper::map($arr,'id', 'name');
+        return $res;
     }
 }

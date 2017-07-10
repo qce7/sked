@@ -32,7 +32,7 @@ class Period extends \common\base\ActiveRecord
     public function rules()
     {
         return [
-            [['task_id', 'start_at', 'end_at', 'created_at', 'updated_at'], 'required'],
+            [['task_id', 'start_at', 'end_at'], 'required'],
             [['task_id', 'start_at', 'end_at', 'created_at', 'updated_at'], 'integer'],
             [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::className(), 'targetAttribute' => ['task_id' => 'id']],
         ];
