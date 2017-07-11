@@ -1,8 +1,12 @@
 <?php
+
 namespace frontend\controllers;
 
+use common\models\Task;
+use common\models\TaskSearch;
 use Yii;
 use yii\base\InvalidParamException;
+use yii\data\ActiveDataProvider;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -72,7 +76,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $searchModel = new TaskSearch();
+        $taskProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('index', [
+            'taskProvider' => $taskProvider,
+            'searchModel' => $searchModel,
+        ]);
     }
 
     /**
