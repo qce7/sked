@@ -11,12 +11,12 @@ namespace common\models;
 
 class TaskBusiness extends Task
 {
-    /*
-     * start
-     * pause
-     */
-    public function start()
+    public function refreshPeriod()
     {
-
+        $total = array_reduce($this->periods, function ($carry, Period $period) {
+            $carry += $period->getValue();
+            return $carry;
+        }, 0);
+        $this->actual_period = $total;
     }
 }

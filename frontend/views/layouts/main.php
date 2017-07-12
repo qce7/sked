@@ -81,3 +81,8 @@ AppAsset::register($this);
 </body>
 </html>
 <?php $this->endPage() ?>
+<style>
+    nav#w1 {
+        background-color: #053bad;
+    }
+</style>

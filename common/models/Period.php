@@ -14,7 +14,7 @@ use Yii;
  * @property integer $created_at
  * @property integer $updated_at
  *
- * @property Task $task
+ * @property TaskBusiness $task
  */
 class Period extends \common\base\ActiveRecord
 {
@@ -58,6 +58,28 @@ class Period extends \common\base\ActiveRecord
      */
     public function getTask()
     {
-        return $this->hasOne(Task::className(), ['id' => 'task_id']);
+        return $this->hasOne(TaskBusiness::className(), ['id' => 'task_id']);
+    }
+
+    /**
+     * calc period value by start and end
+     * @return int
+     */
+    public function getValue(): int
+    {
+        if ($this->end_at <= 0) {
+            return 0;
+        }
+        $res = ($this->end_at - $this->start_at) / 3600;
+        return max(0, intval($res));
+    }
+
+    /**
+     * @inheritdoc
+     * @return PeriodQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new PeriodQuery(get_called_class());
     }
 }

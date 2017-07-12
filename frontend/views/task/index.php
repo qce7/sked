@@ -8,7 +8,7 @@ use common\models\Group;
 /* @var $taskProvider \yii\data\ActiveDataProvider */
 /* @var $searchModel common\models\TaskSearch */
 
-$this->title = 'My Yii Application';
+$this->title = 'Sked - A smart&sample schedule tool.';
 ?>
 <div class="site-index">
     <?php Pjax::begin(); ?>    <?= GridView::widget([

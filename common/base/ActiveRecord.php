@@ -2,6 +2,7 @@
 
 namespace common\base;
 use yii\behaviors\TimestampBehavior;
+use yii\db\Exception;
 
 /**
  * Created by PhpStorm.
@@ -24,5 +25,17 @@ class ActiveRecord extends \yii\db\ActiveRecord
                 // 'value' => new Expression('NOW()'),
             ],
         ];
+    }
+
+    /**
+     * 保存不成功抛出异常
+     * @throws Exception
+     */
+    public function mustSave()
+    {
+        if ($this->save() === false) {
+            $message = $this->className() . ' save failure';
+            throw new Exception($message, $this->errors);
+        }
     }
 }
