@@ -15,12 +15,16 @@ use yii\helpers\ArrayHelper;
  * @property integer $actual_period
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $status
  *
  * @property Period[] $periods
  * @property Group $group
  */
 class Task extends \common\base\ActiveRecord
 {
+    const STATUS_OFF = 0;
+    const STATUS_ON = 1;
+    const STATUS_FINISH = 2;
     /**
      * @inheritdoc
      */
@@ -39,6 +43,7 @@ class Task extends \common\base\ActiveRecord
             [['group_id', 'budget_period', 'actual_period', 'created_at', 'updated_at'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['name'], 'unique'],
+            [['status'], 'default', 'value' => 0],
             [['group_id'], 'exist', 'skipOnError' => true, 'targetClass' => Group::className(), 'targetAttribute' => ['group_id' => 'id']],
         ];
     }
@@ -80,5 +85,15 @@ class Task extends \common\base\ActiveRecord
         $arr = static::find()->select(['id', 'name'])->asArray()->all();
         $res = ArrayHelper::map($arr, 'id', 'name');
         return $res;
+    }
+
+    public function canPause(): bool
+    {
+        return $this->status == static::STATUS_ON;
+    }
+
+    public function canStart(): bool
+    {
+        return $this->status == static::STATUS_OFF;
     }
 }

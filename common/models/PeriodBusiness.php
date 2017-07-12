@@ -16,6 +16,8 @@ class PeriodBusiness extends Period
         $this->task_id = $task->id;
         $this->start_at = time();
         $this->end_at = 0;
+        $this->task->status = Task::STATUS_ON;
+        $this->task->mustSave();
         $this->mustSave();
     }
 
@@ -23,6 +25,7 @@ class PeriodBusiness extends Period
     {
         $this->end_at = time();
         $this->mustSave();
+        $this->task->status = Task::STATUS_OFF;
         $this->task->refreshPeriod();
         $this->task->mustSave();
     }

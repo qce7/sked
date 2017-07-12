@@ -3,6 +3,8 @@
 use yii\widgets\Pjax;
 use yii\grid\GridView;
 use common\models\Group;
+use yii\bootstrap\Html;
+use common\models\Task;
 
 /* @var $this yii\web\View */
 /* @var $taskProvider \yii\data\ActiveDataProvider */
@@ -29,7 +31,18 @@ $this->title = 'Sked - A smart&sample schedule tool.';
             // 'created_at',
             // 'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'start' => function ($url, Task $model, $key) {
+                        return $model->canStart() ? Html::a('<span class="glyphicon glyphicon-play"></span>', $url) : '';
+                    },
+                    'pause' => function ($url, Task $model, $key) {
+                        return $model->canPause() ? Html::a('<span class="glyphicon glyphicon-pause"></span>', $url) : '';
+                    }
+                ],
+                'template' => '{start} {pause}',
+            ]
         ],
     ]); ?>
     <?php Pjax::end(); ?>
