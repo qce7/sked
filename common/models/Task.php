@@ -39,11 +39,11 @@ class Task extends \common\base\ActiveRecord
     public function rules()
     {
         return [
-            [['group_id', 'name', 'budget_period', 'actual_period'], 'required'],
+            [['group_id', 'name', 'budget_period'], 'required'],
             [['group_id', 'budget_period', 'actual_period', 'created_at', 'updated_at'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['name'], 'unique'],
-            [['status'], 'default', 'value' => 0],
+            [['status', 'actual_period'], 'default', 'value' => 0],
             [['group_id'], 'exist', 'skipOnError' => true, 'targetClass' => Group::className(), 'targetAttribute' => ['group_id' => 'id']],
         ];
     }
