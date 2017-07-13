@@ -96,4 +96,11 @@ class Task extends \common\base\ActiveRecord
     {
         return $this->status == static::STATUS_OFF;
     }
+
+    public function delete()
+    {
+        Period::deleteAll(['task_id' => $this->id]);
+        return parent::delete();
+    }
+
 }
