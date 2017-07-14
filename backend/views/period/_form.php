@@ -16,9 +16,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'task_id')->dropDownList(\common\models\Task::getList()) ?>
 
-    <?= $form->field($model, 'start_at')->textInput() ?>
+    <?= $form->field($model, 'start_time')->textInput() ?>
 
-    <?= $form->field($model, 'end_at')->textInput() ?>
+    <?= $form->field($model, 'end_time')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('common', 'Create') : Yii::t('common', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

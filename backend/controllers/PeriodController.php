@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\base\BackendController;
 use Yii;
 use common\models\Period;
 use common\models\PeriodSearch;
@@ -12,7 +13,7 @@ use yii\filters\VerbFilter;
 /**
  * PeriodController implements the CRUD actions for Period model.
  */
-class PeriodController extends Controller
+class PeriodController extends BackendController
 {
     /**
      * @inheritdoc
@@ -85,7 +86,7 @@ class PeriodController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirectRefer();
         } else {
             return $this->render('update', [
                 'model' => $model,

@@ -14,6 +14,10 @@ use Yii;
  * @property integer $created_at
  * @property integer $updated_at
  *
+ * magic property
+ * @property string $start_time
+ * @property string $end_time
+ *
  * @property TaskBusiness $task
  */
 class Period extends \common\base\ActiveRecord
@@ -32,7 +36,7 @@ class Period extends \common\base\ActiveRecord
     public function rules()
     {
         return [
-            [['task_id', 'start_at', 'end_at'], 'required'],
+            [['task_id', 'start_at', 'end_at', 'start_time', 'end_time'], 'required'],
             [['task_id', 'start_at', 'end_at', 'created_at', 'updated_at'], 'integer'],
             [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::className(), 'targetAttribute' => ['task_id' => 'id']],
         ];
@@ -81,5 +85,25 @@ class Period extends \common\base\ActiveRecord
     public static function find()
     {
         return new PeriodQuery(get_called_class());
+    }
+
+    public function getStart_time()
+    {
+        return Yii::$app->formatter->asDateTime($this->start_at);
+    }
+
+    public function setStart_time($value)
+    {
+        $this->start_at = strtotime($value);
+    }
+
+    public function getEnd_time()
+    {
+        return Yii::$app->formatter->asDateTime($this->end_at);
+    }
+
+    public function setEnd_time($value)
+    {
+        $this->end_at = strtotime($value);
     }
 }
