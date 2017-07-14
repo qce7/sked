@@ -2,6 +2,9 @@
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
+        'formatter' => [
+            'datetimeFormat' => 'php:Y-m-d H:i:s',
+        ],
         'i18n' => [
             'translations' => [
                 'app*' => [

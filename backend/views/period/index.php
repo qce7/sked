@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use common\models\Task;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\PeriodSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -24,11 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'task_id',
-            'start_at',
-            'end_at',
-            'created_at',
+//            'id',
+            [
+                'attribute' => 'task_id',
+                'value' => 'task.name',
+                'filter' => Task::getList()
+            ],
+            'start_at:datetime',
+            'end_at:datetime',
+//            'created_at:datetime',
             // 'updated_at',
 
             ['class' => 'yii\grid\ActionColumn'],
