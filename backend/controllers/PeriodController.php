@@ -86,6 +86,8 @@ class PeriodController extends BackendController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->task->refreshPeriod();
+            $model->task->mustSave();
             return $this->redirectRefer();
         } else {
             return $this->render('update', [
