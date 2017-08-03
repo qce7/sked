@@ -38,6 +38,11 @@ class PeriodController extends BackendController
     {
         $searchModel = new PeriodSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->sort = [
+            'defaultOrder' => [
+                'updated_at' => SORT_DESC
+            ]
+        ];
 
         return $this->render('index', [
             'searchModel' => $searchModel,

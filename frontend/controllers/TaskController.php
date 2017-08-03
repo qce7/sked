@@ -20,6 +20,11 @@ class TaskController extends FrontController
     {
         $searchModel = new TaskSearch();
         $taskProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $taskProvider->sort = [
+            'defaultOrder' => [
+                'updated_at' => SORT_DESC
+            ]
+        ];
         return $this->render('index', [
             'taskProvider' => $taskProvider,
             'searchModel' => $searchModel,
